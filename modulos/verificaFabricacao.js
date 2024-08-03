@@ -1,7 +1,12 @@
 import { dataValidade, dataFabricacao } from "../script.js";
 
-// Em caso de produtos perecíveis, é necessário verificar se a data de fabricação é válida.
+// Verificar se a data de fabricação é válida (não pode exceder a validade nem o dia de hoje).
 export function verificaFabricacao(){
+    let hoje = new Date();
+    let diaHoje = hoje.getDate();
+    let mesHoje = hoje.getMonth()+1;
+    let anoHoje = hoje.getFullYear();
+
     let diaVencimento = Number(dataValidade.value.slice(0,2));
     let mesVencimento = Number(dataValidade.value.slice(3,5));
     let anoVencimento = Number(dataValidade.value.slice(6,10));
@@ -12,7 +17,10 @@ export function verificaFabricacao(){
 
     // Return true indica que é uma data válida
     if (anoFabricado > anoVencimento) {return false;}
+    else if (anoFabricado > anoHoje) {return false;}
     else if (anoFabricado == anoVencimento && mesFabricado > mesVencimento){return false;}
+    else if (anoFabricado == anoHoje && mesFabricado > mesHoje){return false;}
     else if (anoFabricado == anoVencimento && mesFabricado == mesVencimento && diaFabricado > diaVencimento){return false}
+    else if (anoFabricado == anoHoje && mesFabricado == mesHoje && diaFabricado > diaHoje){return false}
     else {return true;}
 }

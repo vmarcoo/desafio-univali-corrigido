@@ -26,7 +26,6 @@ checkboxPerecivel.addEventListener("click", verificaPerecivel);
 
 unidadeMedida.addEventListener("change", () => {
     adicionaUnidade(unidadeMedida.value);
-    inputQuantidade.value = 0;
 });
 
 inputQuantidade.addEventListener("blur", () => {
@@ -47,9 +46,9 @@ dataValidade.addEventListener("change", () => {
     }
 });
 
-// Ao selecionar uma data, será verificado a perecividade do item e a relação com a data de validade
+// Ao selecionar uma data, será verificado se é uma data válida
 dataFabricacao.addEventListener("change", () => {
-    if (verificaPerecivel() && dataValidade.value != ""){
+    if (dataValidade.value != ""){
 
         if (!verificaFabricacao()){
             dataFabricacao.classList.add("fabricacaoInvalida")
@@ -75,7 +74,7 @@ formCadastro.addEventListener("submit", function(event) {
         }
     
         else if (dataFabricacao.classList.contains("fabricacaoInvalida")){
-            alert('A data de fabricação não pode exceder a validade.');
+            alert('A data de fabricação não pode exceder a validade nem a data de hoje.');
             event.preventDefault();
         }
     
