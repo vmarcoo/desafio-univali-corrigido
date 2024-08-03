@@ -34,6 +34,8 @@ inputQuantidade.addEventListener("blur", () => {
     if (inputQuantidade.value != 0){validarInputQuantidade(unidadeMedida.value)};
 });
 
+inputQuantidade.addEventListener("focus", () => inputQuantidade.value = "");
+
 // Ao selecionar uma data, será verificado o vencimento e adicionado ou não uma classe "vencido"
 dataValidade.addEventListener("change", () => {
     if (!verificaFabricacao()){
