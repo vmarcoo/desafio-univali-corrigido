@@ -3,6 +3,7 @@ import { verificaVencimento } from "../modulos/verificaVencimento.js";
 import { verificaFabricacao } from "../modulos/verificaFabricacao.js";
 import { verificaPerecivel } from "../modulos/verificaPerecivel.js";
 import { nomeProduto, checkboxPerecivel, dataValidade, dataFabricacao, inputPreco, inputQuantidade, unidadeMedida } from "../script.js";
+import { validarInputQuantidade } from "../modulos/validarQuantidade.js";
 
 // A página inicia com a aba de cadastro pré-selecionada, e portanto estilizada
 document.querySelector("#opcao-menu-1").classList.remove("opcao-menu-escolhida");
@@ -73,13 +74,15 @@ for (let i = 0; i < dadosFormulario.length; i++){
         let salvarAlteracoes = document.querySelector("#salvarAlteracoes");
         salvarAlteracoes.addEventListener("click", (event) => {
             event.preventDefault();
+
             let dadosArmazenados = JSON.parse(localStorage.getItem('listaDadosFormulario'));
 
-            if (/^[A-Za-z\s]*$/.test(nomeProduto.value)){
+            if (/^[A-Za-zÀ-ÖØ-ÿÇç\s]*$/.test(nomeProduto.value)){
                 dadosArmazenados[i].nomeDoProduto = nomeProduto.value;
             }
 
             dadosArmazenados[i].unidadeDeMedida = unidadeMedida.value;
+            validarInputQuantidade(unidadeMedida.value);
             dadosArmazenados[i].quantidade = inputQuantidade.value;
             dadosArmazenados[i].preco = inputPreco.value;
 
@@ -89,14 +92,7 @@ for (let i = 0; i < dadosFormulario.length; i++){
                 dadosArmazenados[i].perecivel = false;
             }
 
-            if (!verificaFabricacao()){
-                dataFabricacao.classList.add("fabricacaoInvalida")
-            } else {
-                dataFabricacao.classList.remove("fabricacaoInvalida")
-            }
-
-            if (verificaPerecivel() && dataValidade.value != ""){
-
+            if (dataValidade.value != listaDadosFormulario[i].validade){
                 if (!verificaFabricacao()){
                     dataFabricacao.classList.add("fabricacaoInvalida")
                 } else {
@@ -104,13 +100,33 @@ for (let i = 0; i < dadosFormulario.length; i++){
                 }
             }
 
-            if (!dataFabricacao.classList.contains("fabricacaoInvalida")){
-                dadosArmazenados[i].fabricacao = dataFabricacao.value;
+            if (dataFabricacao.value != listaDadosFormulario[i].fabricacao){
+                if (!verificaFabricacao()){
+                    dataFabricacao.classList.add("fabricacaoInvalida")
+                } else {
+                    dataFabricacao.classList.remove("fabricacaoInvalida")   
+                }
             }
-            dadosArmazenados[i].validade = dataValidade.value;
-            const dadosFormularioJSON = JSON.stringify(dadosArmazenados);
-            localStorage.setItem('listaDadosFormulario', dadosFormularioJSON);
-            window.location.reload();
+
+            if (!dataValidade.value && verificaPerecivel()) {
+                alert('Por favor, selecione uma data de validade.');
+            }
+        
+            else if (!dataFabricacao.value) {
+                alert('Por favor, selecione uma data de fabricação.');
+            }
+        
+            else if (dataFabricacao.classList.contains("fabricacaoInvalida")){
+                alert('A data de fabricação não pode exceder a validade nem a data de hoje.');
+            }
+
+            else {
+                dadosArmazenados[i].validade = dataValidade.value;
+                dadosArmazenados[i].fabricacao = dataFabricacao.value;
+                const dadosFormularioJSON = JSON.stringify(dadosArmazenados);
+                localStorage.setItem('listaDadosFormulario', dadosFormularioJSON);
+                window.location.reload();
+            }
         })
     })
 

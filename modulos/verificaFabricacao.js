@@ -15,12 +15,12 @@ export function verificaFabricacao(){
     let mesFabricado = Number(dataFabricacao.value.slice(3,5));
     let anoFabricado = Number(dataFabricacao.value.slice(6,10));
 
-    // Return true indica que é uma data válida
-    if (anoFabricado > anoVencimento) {return false;}
+    // Return true indica que é uma data válida (apenas compara fabricação com vencimento se o campo de validade estiver preenchido)
+    if (dataValidade.value != "" && anoFabricado > anoVencimento) {return false;}
     else if (anoFabricado > anoHoje) {return false;}
-    else if (anoFabricado == anoVencimento && mesFabricado > mesVencimento){return false;}
+    else if (dataValidade.value != "" && anoFabricado == anoVencimento && mesFabricado > mesVencimento){return false;}
     else if (anoFabricado == anoHoje && mesFabricado > mesHoje){return false;}
-    else if (anoFabricado == anoVencimento && mesFabricado == mesVencimento && diaFabricado > diaVencimento){return false}
+    else if (dataValidade.value != "" && anoFabricado == anoVencimento && mesFabricado == mesVencimento && diaFabricado > diaVencimento){return false}
     else if (anoFabricado == anoHoje && mesFabricado == mesHoje && diaFabricado > diaHoje){return false}
     else {return true;}
 }

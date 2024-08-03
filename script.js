@@ -39,87 +39,72 @@ inputQuantidade.addEventListener("focus", () => inputQuantidade.value = "");
 dataValidade.addEventListener("change", () => {
     if (!verificaFabricacao()){
         dataFabricacao.classList.add("fabricacaoInvalida")
-    }
-
-    else {
+    } else {
         dataFabricacao.classList.remove("fabricacaoInvalida")
     }
 });
 
 // Ao selecionar uma data, será verificado se é uma data válida
 dataFabricacao.addEventListener("change", () => {
-    if (dataValidade.value != ""){
-
-        if (!verificaFabricacao()){
-            dataFabricacao.classList.add("fabricacaoInvalida")
-        }
-
-        else {
-            dataFabricacao.classList.remove("fabricacaoInvalida")
-        }
+    if (!verificaFabricacao()){
+        dataFabricacao.classList.add("fabricacaoInvalida")
+    } else {
+        dataFabricacao.classList.remove("fabricacaoInvalida")
     }
 })
 
 // Devido à biblioteca Flatpickr para datas em PT-BR, é necessária esta função, apesar do required
 formCadastro.addEventListener("submit", function(event) {
-    if (!formCadastro.classList.contains("submitEdit")){
-        if (!dataValidade.value && verificaPerecivel()) {
-            alert('Por favor, selecione uma data de validade.');
-            event.preventDefault();
-          }
-    
-        else if (!dataFabricacao.value) {
-          alert('Por favor, selecione uma data de fabricação.');
-          event.preventDefault();
-        }
-    
-        else if (dataFabricacao.classList.contains("fabricacaoInvalida")){
-            alert('A data de fabricação não pode exceder a validade nem a data de hoje.');
-            event.preventDefault();
-        }
-    
-        else {
-            event.preventDefault();
-    
-            const dadosFormulario = {
-                nomeDoProduto: nomeProduto.value,
-                unidadeDeMedida: unidadeMedida.value,
-                quantidade: inputQuantidade.value,
-                preco: inputPreco.value,
-                perecivel: verificaPerecivel(),
-                validade: dataValidade.value,
-                fabricacao: dataFabricacao.value
-            };
-    
-            // Recupera os dados existentes do localStorage
-            let dadosArmazenados = localStorage.getItem('listaDadosFormulario');
-    
-            // Se não houver dados armazenados, inicia uma nova lista
-            if (dadosArmazenados === null) {
-                dadosArmazenados = [];
-            } 
-    
-            else {
-                // Converte a string JSON de volta para um array
-                dadosArmazenados = JSON.parse(dadosArmazenados);
-            }
-    
-            // Adiciona o novo conjunto de dados à lista
-            dadosArmazenados.push(dadosFormulario);
-    
-            // Converte o array de volta para uma string JSON
-            const dadosFormularioJSON = JSON.stringify(dadosArmazenados);
-    
-            // Armazena o JSON no localStorage
-            localStorage.setItem('listaDadosFormulario', dadosFormularioJSON);
-    
-            // Limpa os campos do formulário
-            formCadastro.reset();
-    
-            alert('Dados armazenados com sucesso!');
-        }
+    event.preventDefault();
+    if (!dataValidade.value && verificaPerecivel()) {
+        alert('Por favor, selecione uma data de validade.');
     }
+
+    else if (!dataFabricacao.value) {
+        alert('Por favor, selecione uma data de fabricação.');
+    }
+
+    else if (dataFabricacao.classList.contains("fabricacaoInvalida")){
+        alert('A data de fabricação não pode exceder a validade nem a data de hoje.');
+    }
+
     else {
-        event.preventDefault();
+        const dadosFormulario = {
+            nomeDoProduto: nomeProduto.value,
+            unidadeDeMedida: unidadeMedida.value,
+            quantidade: inputQuantidade.value,
+            preco: inputPreco.value,
+            perecivel: verificaPerecivel(),
+            validade: dataValidade.value,
+            fabricacao: dataFabricacao.value
+        };
+
+        // Recupera os dados existentes do localStorage
+        let dadosArmazenados = localStorage.getItem('listaDadosFormulario');
+
+        // Se não houver dados armazenados, inicia uma nova lista
+        if (dadosArmazenados === null) {
+            dadosArmazenados = [];
+        } 
+
+        else {
+            // Converte a string JSON de volta para um array
+            dadosArmazenados = JSON.parse(dadosArmazenados);
+        }
+
+        // Adiciona o novo conjunto de dados à lista
+        dadosArmazenados.push(dadosFormulario);
+
+        // Converte o array de volta para uma string JSON
+        const dadosFormularioJSON = JSON.stringify(dadosArmazenados);
+
+        // Armazena o JSON no localStorage
+        localStorage.setItem('listaDadosFormulario', dadosFormularioJSON);
+
+        // Limpa os campos do formulário
+        formCadastro.reset();
+
+        alert('Dados armazenados com sucesso!');
+        window.location.reload();
     }
 })
