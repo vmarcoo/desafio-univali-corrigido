@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+}
+
+body {
+    display: flex;
+}
+
+aside {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1992D4;
+    color: white;
+    font-size: 2rem;
+    user-select: none;
+    z-index: 2;
+    min-height: 100vh;
+}
+
+.opcao-menu {
+    display: flex;
+    width: 100%;
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    font-size: 2.5rem;
+    gap: 1rem;
+    align-items: center;
+    justify-content: left;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.opcao-menu:hover {
+    cursor: pointer;
+}
+
+.opcao-menu:active {
+    opacity: 80%;
+}
+
+.opcao-menu-escolhida {
+    background-color: #47a8dd;
+    border-left: 5px solid white;
+}
+
+#logo-menu {
+    font-size: 5rem;
+}
+
+main {
+    flex: 5;
+    background-color: #E2E8F0;
+}
+
+header {
+    padding: .5rem;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgb(192, 192, 192);
+}
+
+.container-tabela {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+table {
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 1rem;
+    font-size: 22px;  
+}
+
+thead {
+    background-color: #F0B429;
+}
+
+th {
+    font-weight: 500;
+}
+
+th, td {
+    padding: 1rem 2rem;
+    text-align: left;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #d1d7df;
+}
+
+.produto-vencido {
+    color: red;
+}
+
+.botao-editar, .botao-excluir, .botao-addNovo {
+    margin-top: .8rem;
+    border: none;
+    background: none;
+}
+
+.botao-editar:hover, .botao-excluir:hover, .botao-addNovo:hover {
+    cursor: pointer;
+}
+
+.botao-excluir, .botao-addNovo {
+    margin-left: 1rem;
+}
+
+.modal {
+    display: none; /* Oculta o modal por padrão */
+    position: fixed; /* Fixa o modal na tela */
+    z-index: 1; /* Coloca o modal acima do conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total da tela */
+    height: 100%; /* Altura total da tela */
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgb(0,0,0); /* Cor de fundo preta */
+    background-color: rgba(0,0,0,0.4); /* Cor de fundo preta com opacidade */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Margem superior e centralizado horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
+    max-width: 600px; /* Largura máxima do modal */
+    border-radius: 1rem;
+}
+
+.submitEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100vh;
+    padding-bottom: 1rem;
+}
+
+a {
+    color: black;
+}
+
+footer a {
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    aside {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1992D4;
+        color: white;
+        gap: 2rem;
+        font-size: .5rem;
+        user-select: none;
+        z-index: 2;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 600px) {
+    aside {
+        min-width: 20rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #1992D4;
+        color: white;
+        gap: 2rem;
+        font-size: .5rem;
+        user-select: none;
+        z-index: 2;
+        min-height: 100vh;
+    }
+
+    .botao-editar, .botao-excluir, .botao-addNovo {
+        color: black;
+        border: none;
+        background: none;
+    }
+
+    footer a {
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}

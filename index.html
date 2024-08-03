@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Itens</title>
+
+    <!-- Inclusão da biblioteca Flatpickr para modificar o padrão no formato de data (EUA para BR) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+ 
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Trecho de CSS para remover as "setinhas" do input type number  --> 
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <aside>
+        <span id="logo-menu" class="material-symbols-outlined" style="margin-bottom: 5rem; margin-top: 1rem;">menu</span>
+        <a href="./index.html" id="opcao-menu-1" class="opcao-menu"><span style="font-size: inherit;" class="material-symbols-outlined">add_box</span>Cadastrar</a>
+        <a href="./listagem/listagem.html" id="opcao-menu-2" class="opcao-menu"><span style="font-size: inherit;" class="material-symbols-outlined">receipt_long</span>Listar</a>
+    </aside>
+    <main>
+        <header>
+            <div>
+                <div style="display: flex; align-items: center; font-size: 20px; gap: 1.5rem;">
+                    <span class="material-symbols-outlined" style="font-size: 5rem; color: #021a27;">account_circle</span>
+                    <div>
+                        <p>Olá,</p>
+                        <h2>Usuário</h2>
+                    </div>
+
+                    <h3 style="margin-left: 50vw"><a href="./index.html">Cadastrar</a> > </h3>
+                </div>
+            </div>
+        </header>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-weight: 700; font-size: 2.5rem; margin-top: 2rem; color: #021a27;">Cadastro de Produtos</h1>
+            <div class="form-container">
+                <div class="fundoForm">
+                    <form id="cadastroItem">
+                        <div class="form-elements">
+                            <!-- Nome -->
+                            <label for="nome">Nome do item:</label>
+                            <input type="text" id="nome" name="nome-item" placeholder="Somente letras" maxlength="50" pattern="[a-zA-Z\s]*" required/>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-start; gap: 3rem;">
+                            <div class="form-elements">
+                                <!-- Unidade de medida -->
+                                <label for="unidade-medida">Unidade de Medida:</label>
+                                <select name="unidade-medida" id="unidade-medida" form="cadastroItem" required>
+                                    <option value="" disabled selected>Escolha</option>
+                                    <option value="lt">Litro(s)</option>
+                                    <option value="kg">Quilograma(s)</option>
+                                    <option value="un">Unidade(s)</option>
+                                </select>
+                            </div>
+    
+                            <div class="form-elements" style="display: flex; flex-direction: column;">
+                                <!-- Quantidade -->
+                                <label for="quantidade">Quantidade:</label>
+                                <div style="display: flex; gap: 1.5rem;">
+                                    <input type="number" step="0.001" id="quantidade" name="quantidade" placeholder="0" disabled value="0"/>
+                                    <span style="margin-top: 1rem;" id="addonUnidade"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 1.5rem;">
+                            <div class="form-elements" style="display: flex; gap: .3rem;">
+                                <!-- Preço -->
+                                <label for="preco">Preço:&nbsp;&nbsp;R$</label>
+                                <input type="text" id="preco" name="preco" placeholder="0,00" required/>
+                            </div>
+                            
+                            <div class="form-elements" style="display: flex; flex-direction: row; align-items: center; gap: 1.5rem; margin-top: 1rem;">
+                                <!-- Produto perecível -->
+                                <label for="perecivel">Produto Perecível:</label>
+                                <input type="checkbox" id="perecivel" name="perecivel">
+                            </div>
+                        </div>
+
+                        <div class="form-elements">
+                            <!-- Data de validade -->
+                            <label for="validade">Data de Validade:</label>
+                            <input type="date" id="validade" name="validade" placeholder="DD/MM/AAAA" disabled>
+                            <script>
+                                flatpickr("#validade", {
+                                    dateFormat: "d/m/Y",
+                                    locale: "pt",
+                                });
+                            </script>
+                        </div>
+
+                        <div class="form-elements">
+                            <!-- Data de fabricação -->
+                            <label for="fabricacao">Data de Fabricação:</label>
+                            <input type="date" id="fabricacao" name="fabricacao" placeholder="DD/MM/AAAA" required>
+                            <script>
+                                flatpickr("#fabricacao", {
+                                    dateFormat: "d/m/Y",
+                                    locale: "pt"
+                                });
+                            </script>
+                        </div>
+                    
+                        <!-- Envio do formulário -->
+                        <div style="display: flex; justify-content: center; gap: 2rem;">
+                            <input class="botaoForm" value="Salvar" type="submit">
+                            <input class="botaoForm" value="Cancelar" type="reset" onclick="window.location.assign('./listagem/listagem.html')">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a target="_blank" href="https://github.com/vmarcoo">Marco Vinícius da Costa Busato &copy; 2024 Desafio UNIVALI </a>
+        </footer>
+    </main>
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
