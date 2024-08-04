@@ -54,6 +54,10 @@ for (let i = 0; i < dadosFormulario.length; i++){
         linha.appendChild(cell)
     }
 
+    // Criação da célula que irá conter os botões de ação
+    let acoesCell = document.createElement("td");
+    acoesCell.classList.add("botoes-acao");
+
     // Criação do botão de edição.
     let editar = document.createElement("button");
     editar.classList.add("botao-editar")
@@ -129,16 +133,14 @@ for (let i = 0; i < dadosFormulario.length; i++){
             }
         })
     })
-
-    linha.appendChild(editar);
+    acoesCell.appendChild(editar);
 
     // Criação do botão de exclusão
     let excluir = document.createElement("button");
     excluir.classList.add("botao-excluir")
     excluir.addEventListener("click", () => apagaLinha(i))
     excluir.innerHTML = `<span class="material-symbols-outlined">delete</span>`
-    linha.appendChild(excluir);
-    tbody.appendChild(linha);
+    acoesCell.appendChild(excluir);
 
     // Criação do botão de adicionar um novo produto
     let addNovo = document.createElement("button");
@@ -147,7 +149,9 @@ for (let i = 0; i < dadosFormulario.length; i++){
         window.location.href = "../index.html"
     });
     addNovo.innerHTML = `<span class="material-symbols-outlined">add_circle</span>`
-    linha.appendChild(addNovo);
+    acoesCell.appendChild(addNovo);
+
+    linha.appendChild(acoesCell);
     tbody.appendChild(linha);
 }
 

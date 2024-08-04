@@ -104,18 +104,18 @@ tbody tr:nth-of-type(even) {
     color: red;
 }
 
+.botoes-acao {
+    display: flex;
+}
+
 .botao-editar, .botao-excluir, .botao-addNovo {
-    margin-top: .8rem;
     border: none;
     background: none;
+    color: black;
 }
 
 .botao-editar:hover, .botao-excluir:hover, .botao-addNovo:hover {
     cursor: pointer;
-}
-
-.botao-excluir, .botao-addNovo {
-    margin-left: 1rem;
 }
 
 .modal {
@@ -183,24 +183,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 600px) {
-    aside {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: #1992D4;
-        color: white;
-        gap: 2rem;
-        font-size: .5rem;
-        user-select: none;
-        z-index: 2;
-        min-height: 100vh;
-    }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 767px) {
     aside {
         min-width: 20rem;
         flex: 1;
@@ -217,10 +200,16 @@ footer a:hover {
         min-height: 100vh;
     }
 
+    .container-tabela {
+        margin-left: 6rem;
+        margin-right: 6rem;
+    }
+
     .botao-editar, .botao-excluir, .botao-addNovo {
         color: black;
         border: none;
         background: none;
+        margin-top: .8rem;
     }
 
     footer a {
